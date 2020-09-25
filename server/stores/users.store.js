@@ -11,19 +11,20 @@ class UsersStore {
 	constructor({ configLoader }) {
 		const directory = configLoader.getValue("storage.databaseDirectory");
 		this.structureJsonDb = {
-			idName: "name",
+			idName: "login",
 			jsonSchema: {
 				type: "object",
 				properties: {
-					name: { type: "string" },
+					login: { type: "string" },
 					password: { type: "string", minLength: 4 },
+					name: { type: "string" },
 					active: { type: "boolean", default: true },
 					description: { type: "string" },
 				},
 				additionalProperties: false,
-				required: [ "name", "password", "active" ],
+				required: [ "login", "password", "name", "active" ],
 			},
-			searchIndex: [ "name", "description" ],
+			searchIndex: [ "login", "name", "description" ],
 		};
 
 		this.jsonDb = new JsonDb(path.join(directory, "users"));
@@ -41,18 +42,19 @@ class UsersStore {
 			}
 			await this.jsonDb.create(this.structureJsonDb);
 			await this.jsonDb.insert({
-				name: "serge",
+				login: "serge",
 				password: "achanger",
+				name: "Serge Besson",
 				active: true,
 				description: "Administrateur",
 			});
 		}
 	}
 
-	set loginUser(name) {
-		const user = this.jsonDb.collection.getById(name);
+	set loginUser(login) {
+		const user = this.jsonDb.collection.getById(login);
 		if (!user) {
-			throw new Error(`loginUser - utilisateur ${ name } inconnu`);
+			throw new Error(`loginUser - utilisateur ${ login } inconnu`);
 		}
 		this._loginUser = new User(user);
 	}
@@ -60,12 +62,12 @@ class UsersStore {
 		return this._loginUser;
 	}
 
-	checkAuthentification({ name: nameInput, password: passwordInput }) {
+	checkAuthentification({ login: loginInput, password: passwordInput }) {
 		return _.some(
 			this.jsonDb.collection.find({ active: true }),
-			({ name, password }) =>
+			({ login, password }) =>
 				// eslint-disable-next-line no-bitwise
-				safeCompare(nameInput, name) & safeCompare(passwordInput, password),
+				safeCompare(loginInput, login) & safeCompare(passwordInput, password),
 		);
 	}
 
@@ -74,8 +76,8 @@ class UsersStore {
 			.map((user) => new User(user).jsonPrivate);
 	}
 
-	getUserByName({ name }) {
-		const user = this.jsonDb.collection.getById(name);
+	getUserByLogin({ login }) {
+		const user = this.jsonDb.collection.getById(login);
 		if (!user) {
 			return null;
 		}
@@ -88,7 +90,7 @@ class UsersStore {
 	}
 
 	async update(userUpdateInfos) {
-		const userInfos = this.jsonDb.collection.getById(userUpdateInfos.name);
+		const userInfos = this.jsonDb.collection.getById(userUpdateInfos.login);
 		if (!userInfos) {
 			throw new Error("userNotfound");
 		}
@@ -97,16 +99,15 @@ class UsersStore {
 		return new User(userUpdate);
 	}
 
-	async delete({ name }) {
-		const userInfos = this.jsonDb.collection.getById(name);
+	async delete({ login }) {
+		const userInfos = this.jsonDb.collection.getById(login);
 		if (!userInfos) {
 			throw new Error("userNotfound");
 		}
-		const user = new User(userInfos);
-		if (user.isAdmin) {
+		if (new User(userInfos).isAdmin) {
 			throw new Error("unauthorized");
 		}
-		await this.jsonDb.delete(name);
+		await this.jsonDb.delete(login);
 	}
 }
 

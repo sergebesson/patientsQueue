@@ -1,26 +1,31 @@
+login:
+  description: Identifiant de l'utilisateur
+  type: string
+password:
+  description: Mot de passe de l'utilisateur
+  type: string
+  minLength: 4
 name:
   description: Nom de l'utilisateur
   type: string
-password:
-  description: mot de passe de l'utilisateur
-  type: string
-  minLength: 4
 active:
   description: Utilisateur actif
   type: boolean
   default: true
 description:
-  description: description de l'utilisateur
+  description: Description de l'utilisateur
   type: string
 is_admin:
-  description: l'utilisateur est-il administrateur ?
+  description: L'utilisateur est-il administrateur ?
   type: boolean
 
 user_infos:
   type: object
   additionalProperties: false
-  required: [ name, is_admin ]
+  required: [ login, name, is_admin ]
   properties:
+    login:
+      $ref: "#/login"
     name:
       $ref: "#/name"
     description:
@@ -31,12 +36,14 @@ user_infos:
 user_detail:
   type: object
   additionalProperties: false
-  required: [ name, password, active, description, is_admin ]
+  required: [ login, password, name, active, description, is_admin ]
   properties:
-    name:
-      $ref: "#/name"
+    login:
+      $ref: "#/login"
     password:
       $ref: "#/password"
+    name:
+      $ref: "#/name"
     active:
       $ref: "#/active"
     description:
@@ -47,12 +54,14 @@ user_detail:
 user_create:
   type: object
   additionalProperties: false
-  required: [ name, password, description ]
+  required: [ login, password, description ]
   properties:
-    name:
-      $ref: "#/name"
+    login:
+      $ref: "#/login"
     password:
       $ref: "#/password"
+    name:
+      $ref: "#/name"
     active:
       $ref: "#/active"
     description:
@@ -64,6 +73,8 @@ user_update:
   properties:
     password:
       $ref: "#/password"
+    name:
+      $ref: "#/name"
     active:
       $ref: "#/active"
     description:

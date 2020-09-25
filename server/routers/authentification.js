@@ -8,7 +8,7 @@ async function authentificationRouterFactory({ usersStore }) {
 	const router = express.Router();
 
 	router.use(expressBasicAuth({
-		authorizer: (name, password) => usersStore.checkAuthentification({ name, password }),
+		authorizer: (login, password) => usersStore.checkAuthentification({ login, password }),
 		challenge: true,
 	}));
 	router.use((request, response, next) => {

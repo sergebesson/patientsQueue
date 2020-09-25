@@ -1,7 +1,7 @@
-name:
-  name: name
+login:
+  name: login
   in: path
   required: true
-  description: nom de l'utilisateur
+  description: L'identifiant de l'utilisateur
   schema:
     type: string

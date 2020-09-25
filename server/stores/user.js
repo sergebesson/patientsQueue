@@ -4,12 +4,13 @@ const _ = require("lodash");
 const decamelizeKeys = require("decamelize-keys");
 
 class User {
-	constructor({ name, password, active = true, description }) {
-		this.name = name;
+	constructor({ login, name = "", password, active = true, description }) {
+		this.login = login;
 		this.password = password;
-		this.active = active || this.name === "serge";
+		this.name = name || login;
+		this.active = active || this.login === "serge";
 		this.description = description;
-		this._isAdmin = this.name === "serge";
+		this._isAdmin = this.login === "serge";
 	}
 
 	get isAdmin() {
@@ -18,6 +19,7 @@ class User {
 
 	get jsonPublic() {
 		return {
+			login: this.login,
 			name: this.name,
 			description: this.description,
 			is_admin: this.isAdmin,
@@ -26,11 +28,9 @@ class User {
 
 	get jsonPrivate() {
 		return {
-			name: this.name,
+			...this.jsonPublic,
 			password: this.password,
 			active: this.active,
-			description: this.description,
-			is_admin: this.isAdmin,
 		};
 	}
 

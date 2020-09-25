@@ -6,14 +6,14 @@ user_detail:
         $ref: "./schemas.yml#/user_detail"
 
 user_infos:
-  description: informations de l'utilisateur connecté
+  description: Informations de l'utilisateur connecté
   content:
     application/json:
       schema:
         $ref: "./schemas.yml#/user_infos"
 
 user_list:
-  description: liste des utilisateurs
+  description: Liste des utilisateurs
   content:
     application/json:
       schema:

@@ -1,5 +1,5 @@
 user_create:
-  description: création de l'utilisateur
+  description: Création de l'utilisateur
   required: true
   content:
     application/json:
@@ -7,7 +7,7 @@ user_create:
         $ref: "schemas.yml#/user_create"
 
 user_update:
-  description: mise à jour de l'utilisateur
+  description: Mise à jour de l'utilisateur
   required: true
   content:
     application/json:

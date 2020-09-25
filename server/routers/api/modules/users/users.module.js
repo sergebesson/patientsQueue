@@ -23,16 +23,16 @@ function routerFactory({ usersStore }) {
 
 	router.get("/", sendUsersListWithPagination({ usersStore }));
 
-	router.head("/:name", (request, response) => {
-		const user = usersStore.getUserByName({ name: request.params.name });
+	router.head("/:login", (request, response) => {
+		const user = usersStore.getUserByLogin({ login: request.params.login });
 		if (user === null) {
 			return response.sendStatus(404);
 		}
 		response.sendStatus(204);
 	});
 
-	router.get("/:name", (request, response) => {
-		const user = usersStore.getUserByName({ name: request.params.name });
+	router.get("/:login", (request, response) => {
+		const user = usersStore.getUserByLogin({ login: request.params.login });
 		if (user === null) {
 			return response.status(404).json({
 				status: 404,
@@ -43,8 +43,9 @@ function routerFactory({ usersStore }) {
 	});
 
 	router.post("/", (request, response, next) => usersStore.insert({
-		name: request.body.name,
+		login: request.body.login,
 		password: request.body.password,
+		name: request.body.name,
 		active: request.body.active,
 		description: request.body.description,
 	})
@@ -59,9 +60,10 @@ function routerFactory({ usersStore }) {
 		),
 	);
 
-	router.patch("/:name", (request, response, next) => usersStore.update({
-		name: request.params.name,
+	router.patch("/:login", (request, response, next) => usersStore.update({
+		login: request.params.login,
 		password: request.body.password,
+		name: request.body.name,
 		active: request.body.active,
 		description: request.body.description,
 	})
@@ -75,8 +77,8 @@ function routerFactory({ usersStore }) {
 		),
 	);
 
-	router.delete("/:name", (request, response, next) => usersStore.delete({
-		name: request.params.name,
+	router.delete("/:login", (request, response, next) => usersStore.delete({
+		login: request.params.login,
 	})
 		.then(() => response.sendStatus(204))
 		.catch((error) => {
