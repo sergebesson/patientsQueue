@@ -2,6 +2,7 @@
 node_modules
 dist
 data/users\.*
+data/patients-queue\.*
 *.log
 
 

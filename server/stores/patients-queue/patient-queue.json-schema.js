@@ -4,10 +4,10 @@ const datesJsonSchema = {
 	type: "object",
 	properties: {
 		creation: { type: "string", format: "date-time" },
-		recall: { type: "string", format: "date" },
+		reminder: { type: "string", format: "date" },
 	},
 	additionalProperties: false,
-	required: [ "creation", "recall" ],
+	required: [ "creation", "reminder" ],
 };
 
 const patientJsonSchema = {
@@ -54,16 +54,17 @@ const visibleByJsonSchema = {
 	} ],
 };
 
-const remindersJsonSchema = {
+const contactsJsonSchema = {
 	type: "array",
 	items: {
 		type: "object",
 		properties: {
+			_id: { type: "string" },
 			date: { type: "string", format: "date-time" },
 			information: { type: "string" },
 		},
 		additionalProperties: false,
-		required: [ "date", "information" ],
+		required: [ "_id", "date", "information" ],
 	},
 };
 
@@ -87,11 +88,11 @@ const patientQueueJsonSchema = {
 		availability: { type: "string" },
 		visibleBy: visibleByJsonSchema,
 		additionalInformation: { type: "string" },
-		reminders: remindersJsonSchema,
+		contacts: contactsJsonSchema,
 		state: stateJsonSchema,
 	},
 	additionalProperties: false,
-	required: [ "dates", "patient", "visibleBy" ],
+	required: [ "_id", "dates", "patient", "visibleBy", "state" ],
 };
 
 module.exports = { patientQueueJsonSchema };

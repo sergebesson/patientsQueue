@@ -2,12 +2,13 @@
 
 ## TODO
 
-* Création du module api `patients`
+* iu - liste des patientQueue en cours
 
 ## ON GOING
 
-* Création du store `patients`
+* Création du module api `patientsQueue`
 
 ## DONE
 
-* Définir le json schema du store `patients`
+* Définir le json schema du store `patientsQueue`
+* Création du store `patientsQueue`

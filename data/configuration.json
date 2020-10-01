@@ -1,4 +1,9 @@
 {
+	"patientsQueue": {
+		"recallDuration": {
+			"months": 1
+		}
+	},
 	"storage": {
 		"databaseDirectory": "data"
 	},
