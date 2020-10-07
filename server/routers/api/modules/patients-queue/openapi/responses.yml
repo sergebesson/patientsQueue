@@ -1,0 +1,27 @@
+patient_queue:
+  description: Détail du patient en file d'attente
+  content:
+    application/json:
+      schema:
+        $ref: "./schemas.yml#/patient_queue"
+
+patient_queue_list:
+  description: Liste des patients en file d'attente
+  content:
+    application/json:
+      schema:
+        $ref: "./schemas.yml#/patient_queue_list"
+
+contact:
+  description: Détail du contact eut avec le patient en file d'attente
+  content:
+    application/json:
+      schema:
+        $ref: "./schemas.yml#/contact"
+
+contact_list:
+  description: Liste des contacts eut avec le patient en file d'attente
+  content:
+    application/json:
+      schema:
+        $ref: "./schemas.yml#/contact_list"

@@ -1,0 +1,25 @@
+state:
+  name: state
+  in: query
+  description: Etat du patient dans la file d'attente
+  style: form
+  explode: false
+  allowReserved: true
+  schema:
+    type: array
+    items:
+      type: string
+      enum:
+        - reminder-reached
+        - in-queue
+        - processed
+        - abandoned
+    default: [ reminder-reached ]
+
+id:
+  name: id
+  in: path
+  required: true
+  description: L'identifiant du patient en file d'attente
+  schema:
+    type: string

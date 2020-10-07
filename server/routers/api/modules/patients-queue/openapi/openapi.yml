@@ -1,0 +1,120 @@
+openapi: 3.0.0
+info:
+  title: Gestion de la file d'attente des patients
+  version: 1.0.0
+tags:
+  - name: patients-queue
+    description: Gestion de la file d'attente des patients
+
+paths:
+  /:
+    summary: Gestion de la file d'attente des patients
+    description: Gestion de la file d'attente des patients
+    get:
+      tags: [ patients-queue ]
+      summary: Liste des patients en file d'attente
+      description: Récupération de la liste des patients en file d'attente, liste paginée
+      parameters:
+        - $ref: "#/components/parameters/page"
+        - $ref: "#/components/parameters/page_size"
+        - $ref: "#/components/parameters/search"
+        - $ref: "parameters.yml#/state"
+      responses:
+        200:
+          $ref: "responses.yml#/patient_queue_list"
+    post:
+      tags: [ patients-queue ]
+      summary: Création d'un patient en file d'attente
+      description: Création d'un patient en file d'attente
+      requestBody:
+        $ref: "request-bodies.yml#/patient_queue_create"
+      responses:
+        201:
+          $ref: "responses.yml#/patient_queue"
+
+  /{id}:
+    summary: Gestion d'un patient en file d'attente
+    description: Gestion d'un patient en file d'attente
+    parameters:
+      - $ref: "parameters.yml#/id"
+    get:
+      tags: [ patients-queue ]
+      summary: Récupération d'un patient en file d'attente
+      description: Récupération d'un patient en file d'attente
+      responses:
+        200:
+          $ref: "responses.yml#/patient_queue"
+    patch:
+      tags: [ patients-queue ]
+      summary: Modification d'un patient en file d'attente
+      description: Modification d'un patient en file d'attente
+      requestBody:
+        $ref: "request-bodies.yml#/patient_queue_update"
+      responses:
+        200:
+          $ref: "responses.yml#/patient_queue"
+
+  /{id}/contacts:
+    summary: Gestion des contacts eut avec le patient en file d'attente
+    description: Gestion des contacts eut avec le patient en file d'attente
+    parameters:
+      - $ref: "parameters.yml#/id"
+    get:
+      tags: [ patients-queue ]
+      summary: Liste des contacts eut avec le patient en file d'attente
+      description: Récupération de la liste des contacts eut avec le patient en file d'attente
+      responses:
+        200:
+          $ref: "responses.yml#/contact_list"
+    post:
+      tags: [ patients-queue ]
+      summary: Création d'un contact eut avec le patient en file d'attente
+      description: Création d'un contact eut avec le patient en file d'attente
+      requestBody:
+        $ref: "request-bodies.yml#/contact_create"
+      responses:
+        201:
+          $ref: "responses.yml#/contact"
+
+  /{id}/remind:
+    summary: Demande à être rappelé sur ce patient en file d'attente
+    description: Demande à être rappelé sur ce patient en file d'attente
+    parameters:
+      - $ref: "parameters.yml#/id"
+    post:
+      tags: [ patients-queue ]
+      summary: Demande à être rappelé sur ce patient en file d'attente
+      description: Demande à être rappelé sur ce patient en file d'attente
+      responses:
+        200:
+          $ref: "responses.yml#/patient_queue"
+
+  /{id}/put_processed:
+    summary: Indique le patient en fille d'attente comme traité
+    description: Indique le patient en fille d'attente comme traité
+    parameters:
+      - $ref: "parameters.yml#/id"
+    post:
+      tags: [ patients-queue ]
+      summary: Indique le patient en fille d'attente comme traité
+      description: Indique le patient en fille d'attente comme traité
+      requestBody:
+        $ref: "request-bodies.yml#/state_description"
+      responses:
+        200:
+          $ref: "responses.yml#/patient_queue"
+
+  /{id}/put_abandoned:
+    summary: Indique le patient en fille d'attente comme abandonné
+    description: Indique le patient en fille d'attente comme abandonné
+    parameters:
+      - $ref: "parameters.yml#/id"
+    post:
+      tags: [ patients-queue ]
+      summary: Indique le patient en fille d'attente comme abandonné
+      description: Indique le patient en fille d'attente comme abandonné
+      requestBody:
+        $ref: "request-bodies.yml#/state_description"
+      responses:
+        200:
+          $ref: "responses.yml#/patient_queue"

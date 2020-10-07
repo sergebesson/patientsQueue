@@ -1,0 +1,31 @@
+patient_queue_create:
+  description: Création d'un patient en file d'attente
+  required: true
+  content:
+    application/json:
+      schema:
+        $ref: "schemas.yml#/patient_queue_create"
+
+patient_queue_update:
+  description: Mise à jour d'un patient en file d'attente
+  required: true
+  content:
+    application/json:
+      schema:
+        $ref: "schemas.yml#/patient_queue_update"
+
+contact_create:
+  description: Création d'un contact eut avec le patient en file d'attente
+  required: true
+  content:
+    application/json:
+      schema:
+        $ref: "schemas.yml#/contact_create"
+
+state_description:
+  description: Information sur le changement d'état
+  required: true
+  content:
+    application/json:
+      schema:
+        $ref: "schemas.yml#/state_description"

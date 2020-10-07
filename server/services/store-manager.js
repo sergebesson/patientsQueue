@@ -3,7 +3,7 @@
 const path = require("path");
 const _ = require("lodash");
 const requireGlob = require("require-glob");
-const { pascalCase, pascalCaseTransformMerge } = require("pascal-case");
+const { pascalCase, pascalCaseTransformMerge } = require("change-case");
 
 class StoreManager {
 

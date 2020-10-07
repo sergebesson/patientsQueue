@@ -1,0 +1,213 @@
+id:
+  description: identifiant du patient en file d'attente
+  type: string
+
+dates:
+  description: dates de création et de rappel du patient en file d'attente
+  type: object
+  additionalProperties: false
+  required: [ creation, reminder ]
+  properties:
+    creation:
+      description: Date de création du patient dans la file d'attente
+      type: string
+      format: date-time
+    reminder:
+      description: Date du prochain rappel du patient en file d'attente
+      type: string
+      format: date
+
+patient:
+  description: Informations sur le patient en file d'attente
+  type: object
+  additionalProperties: false
+  required: [ name ]
+  properties:
+    name:
+      description: Nom du patient en file d'attente
+      type: string
+    first_name:
+      description: Prénom du patient en file d'attente
+      type: string
+    date_of_birth:
+      description: Date de naissance du patient en file d'attente
+      type: string
+      format: date
+    school:
+      description: Ecole du patient en file d'attente
+      type: string
+    class:
+      description: Classe actuelle du patient en file d'attente
+      type: string
+    phone_numbers:
+      description: Liste des numéros de téléphone du patient en file d'attente
+      type: array
+      items:
+        type: string
+        pattern: "^(0|\\+33)[1-9]([-. ]?[0-9]{2}){4}$"
+
+medical_information:
+  description: Informations médicale sur le patient en file d'attente
+  type: object
+  additionalProperties: false
+  properties:
+    request_from:
+      description: La personne qui demande le bilan pour le patient en file d'attente
+      type: string
+    request_for:
+      description: Le pourquoi on demande un bilan pour le patient en file d'attente
+      type: string
+    doctor:
+      description: Docteur traitant du patient en file d'attente
+      type: string
+
+availability:
+  description: disponibilité du patient en file d'attente
+  type: string
+
+visible_by:
+  description: liste des orthophonistes pouvant voir le patient en file d'attente
+  anyOf:
+    - type: array
+      items:
+        type: object
+        additionalProperties: false
+        required: [ "login", "name" ]
+        properties:
+          login:
+            type: string
+          name:
+            type: string
+    - type: string
+      enum: [ ALL ]
+
+additional_information:
+  description: Information supplémentaire sur le patient en file d'attente
+  type: string
+
+state:
+  description: Etat du patient en file d'attente
+  type: object
+  additionalProperties: false
+  required: [ "type" ]
+  properties:
+    type:
+      type: string
+      enum: [ "in-queue", "processed", "abandoned" ]
+    description:
+      type: string
+
+patient_queue:
+  type: object
+  additionalProperties: false
+  required: [ id, dates, patient, visible_by, state ]
+  properties:
+    id:
+      $ref: "#/id"
+    dates:
+      $ref: "#/dates"
+    patient:
+      $ref: "#/patient"
+    medical_information:
+      $ref: "#/medical_information"
+    availability:
+      $ref: "#/availability"
+    visible_by:
+      $ref: "#/visible_by"
+    additional_information:
+      $ref: "#/additional_information"
+    state:
+      $ref: "#/state"
+
+patient_queue_create:
+  type: object
+  additionalProperties: false
+  required: [ patient ]
+  properties:
+    patient:
+      $ref: "#/patient"
+    medical_information:
+      $ref: "#/medical_information"
+    availability:
+      $ref: "#/availability"
+    visible_by:
+      $ref: "#/visible_by"
+    additional_information:
+      $ref: "#/additional_information"
+
+patient_queue_update:
+  type: object
+  additionalProperties: false
+  properties:
+    patient:
+      $ref: "#/patient"
+    medical_information:
+      $ref: "#/medical_information"
+    availability:
+      $ref: "#/availability"
+    visible_by:
+      $ref: "#/visible_by"
+    additional_information:
+      $ref: "#/additional_information"
+
+patient_queue_list:
+  type: object
+  additionalProperties: false
+  required: [ page, page_size, total_pages, total_patients_queue, patients_queue ]
+  properties:
+    page:
+      $ref: "../../../openapi/schemas.yml#/page"
+    page_size:
+      $ref: "../../../openapi/schemas.yml#/page_size"
+    total_pages:
+      $ref: "../../../openapi/schemas.yml#/total_pages"
+    total_patients_queue:
+      description: nombre de patient en file d'attente au total
+      type: integer
+      format: int32
+    patients_queue:
+      description: liste des patients en file d'attente
+      type: array
+      items:
+        $ref: "#/patient_queue"
+
+contact:
+  description: Détail d'un contact eut avec le patient en file d'attente
+  type: object
+  additionalProperties: false
+  required: [ id, date, information ]
+  properties:
+    id:
+      type: string
+    date:
+      type: string
+      format: date-time
+    information:
+      type: string
+
+contact_create:
+  description: Création d'un contact eut avec le patient en file d'attente
+  type: object
+  additionalProperties: false
+  required: [ date, information ]
+  properties:
+    date:
+      type: string
+      format: date-time
+    information:
+      type: string
+
+contact_list:
+  description: Liste des contacts eut avec le patient en file d'attente
+  type: array
+  items:
+    $ref: "#/contact"
+
+state_description:
+  description: Information sur le changement d'état
+  type: object
+  additionalProperties: false
+  required: [ description ]
+  properties:
+    description:
+      type: string

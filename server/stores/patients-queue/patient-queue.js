@@ -5,7 +5,7 @@ const moment = require("moment");
 const uniqid = require("uniqid");
 
 class PatientQueue {
-	static async createNew({ jsonDb, patientQueue: {
+	static async createNew({ jsonDb, recallDuration, patientQueue: {
 		patient,
 		medicalInformation = {},
 		availability = "",
@@ -14,20 +14,20 @@ class PatientQueue {
 	} }) {
 		const dates = {
 			creation: new Date().toISOString(),
-			recall: PatientQueue.getValue(this.config.recallDuration),
+			reminder: PatientQueue.generateReminderDate(recallDuration),
 		};
-		const { document: patientQueue } = await this.jsonDb.insert({
+		const { document: patientQueue } = await jsonDb.insert({
 			dates, patient, medicalInformation, availability, visibleBy, additionalInformation,
-			reminders: [], state: { type: "in-queue" },
+			contacts: [], state: { type: "in-queue" },
 		});
 
 		return new PatientQueue({ jsonDb, patientQueue });
 	}
 
-	static createById({ jsonDb, id }) {
+	static createById({ jsonDb, id, recallDuration }) {
 		const patientQueue = jsonDb.collection.getById(id);
 		if (patientQueue) {
-			return new PatientQueue({ jsonDb, patientQueue });
+			return new PatientQueue({ jsonDb, patientQueue, recallDuration });
 		}
 	}
 
@@ -35,9 +35,17 @@ class PatientQueue {
 		return moment().add(recallDuration).toISOString(true).split("T")[0];
 	}
 
-	constructor({ jsonDb, patientQueue }) {
+	constructor({ jsonDb, patientQueue, recallDuration }) {
 		this.jsonDb = jsonDb;
 		this.patientQueue = patientQueue;
+		this._recallDuration = recallDuration;
+	}
+
+	get recallDuration() {
+		return this._recallDuration;
+	}
+	set recallDuration(recallDuration) {
+		this._recallDuration = recallDuration;
 	}
 
 	get patient() {
@@ -98,16 +106,16 @@ class PatientQueue {
 		visibleBy,
 		additionalInformation,
 	}) {
-		this.patientQueue = {
-			...this.patientQueue,
-			..._.omitBy({
+		this.patientQueue = _.merge(
+			this.patientQueue,
+			_.omitBy({
 				patient,
 				medicalInformation,
 				availability,
 				visibleBy,
 				additionalInformation,
 			}, _.isUndefined),
-		};
+		);
 		await this.jsonDb.update(this.patientQueue);
 		return this;
 	}
@@ -116,7 +124,7 @@ class PatientQueue {
 		if (this.patientQueue.state.type !== "in-queue") {
 			throw new Error("STATE_NOT_IN-QUEUE");
 		}
-		this.patientQueue.dates.reminder = PatientQueue.generateReminderDate();
+		this.patientQueue.dates.reminder = PatientQueue.generateReminderDate(this._recallDuration);
 		await this.jsonDb.update(this.patientQueue);
 		return this;
 	}
@@ -127,9 +135,9 @@ class PatientQueue {
 		}
 		contact._id = uniqid.process();
 		this.patientQueue.contacts.unshift(contact);
-		this.patientQueue.dates.reminder = PatientQueue.generateReminderDate();
+		this.patientQueue.dates.reminder = PatientQueue.generateReminderDate(this._recallDuration);
 		await this.jsonDb.update(this.patientQueue);
-		return this;
+		return contact;
 	}
 
 	async putProcessed(description) {
@@ -137,7 +145,7 @@ class PatientQueue {
 			throw new Error("STATE_NOT_IN-QUEUE");
 		}
 		this.patientQueue.state.type = "processed";
-		this.patientQueue.description = description;
+		this.patientQueue.state.description = description;
 		await this.jsonDb.update(this.patientQueue);
 		return this;
 	}
@@ -146,8 +154,8 @@ class PatientQueue {
 		if (this.patientQueue.state.type !== "in-queue") {
 			throw new Error("STATE_NOT_IN-QUEUE");
 		}
-		this.patientQueue.state.type = "processed";
-		this.patientQueue.description = description;
+		this.patientQueue.state.type = "abandoned";
+		this.patientQueue.state.description = description;
 		await this.jsonDb.update(this.patientQueue);
 		return this;
 	}

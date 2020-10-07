@@ -39,15 +39,24 @@ class PatientsQueueStore {
 	}
 
 	get(id) {
-		return PatientQueue.createById({ jsonDb: this.jsonDb, id });
+		return PatientQueue.createById({
+			jsonDb: this.jsonDb, id, recallDuration: this.config.recallDuration,
+		});
 	}
 
 	async insert({ patientQueue }) {
-		return await PatientQueue.createNew({ jsonDb: this.jsonDb, patientQueue });
+		return await PatientQueue.createNew({
+			jsonDb: this.jsonDb, recallDuration: this.config.recallDuration, patientQueue,
+		});
 	}
 
 	async update({ id, patientQueue: patientQueueUpdate }) {
-		const patientQueue = PatientQueue.createPatientById({ jsonDb: this.jsonDb, id });
+		const patientQueue = PatientQueue.createById(
+			{ jsonDb: this.jsonDb, id, recallDuration: this.config.recallDuration },
+		);
+		if (!patientQueue) {
+			throw new Error("patientNotfound");
+		}
 		return await patientQueue.update(patientQueueUpdate);
 	}
 }
