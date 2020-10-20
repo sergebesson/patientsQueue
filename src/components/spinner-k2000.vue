@@ -1,38 +1,33 @@
 
 <template>
-	<div class="spinner" :class="{ animated: animate }"><div /></div>
+	<md-content class="spinner-k2000 md-primary">
+		<div v-show="animate" :style="{ animationDuration: `${ duration }s` }" />
+	</md-content>
 </template>
 
 <script>
 export default {
-	name: "Spinner",
+	name: "SpinnerK2000",
 	props: {
-		animate: {
-			type: Boolean,
-			default: false,
-		},
+		animate: { type: Boolean, default: true },
+		duration: { type: Number, default: 2 },
 	},
 };
 </script>
 
 <style>
-.spinner {
+.spinner-k2000 {
 	position: relative;
 	margin: 0px 30px 0px 20px;
 	width: calc(100% - 50px);
 }
 
-.spinner div {
-	display: none;
+.spinner-k2000 div {
 	position: absolute;
-	background-color: cornflowerblue;
+	background-color: inherit;
 	border-radius: 50%;
-}
-
-.spinner.animated div {
-	display: block;
 	animation-name: k2000;
-	animation-duration: 1.5s;
+	animation-duration: 2s;
 	animation-iteration-count: infinite;
 	animation-timing-function: ease-in-out;
 	animation-delay: 0s;

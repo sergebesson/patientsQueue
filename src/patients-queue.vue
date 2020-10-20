@@ -3,10 +3,23 @@
 		<loader v-if="!meStore.name" />
 		<error />
 
-		<div class="content" v-show="meStore.name">
-			<app-header :me="meStore"/>
-			<infos />
-		</div>
+		<md-app md-waterfall md-mode="fixed" v-show="meStore.name" class="md-elevation-10">
+			<md-app-toolbar class="md-primary md-dense">
+				<span class="md-title">List d'attente patients</span>
+				<div class="md-toolbar-section-end">
+					<profile-menu v-if="meStore.name" :name="meStore.name">
+						<md-divider />
+						<md-menu-item href="/api" target="_blank">
+							<md-icon>api</md-icon>
+							<span>api</span>
+						</md-menu-item>
+					</profile-menu>
+				</div>
+			</md-app-toolbar>
+			<md-app-content>
+				<patient-queue-list />
+			</md-app-content>
+		</md-app>
 	</div>
 </template>
 
@@ -14,12 +27,12 @@
 import { meStore } from "./stores/me.store";
 import Loader from "./components/loader";
 import Error from "./components/error";
-import AppHeader from "./components/app-header";
-import Infos from "./components/info";
+import ProfileMenu from "./components/profile-menu";
+import PatientQueueList from "./components/patient-queue-list";
 
 export default {
 	name: "PatientsQueue",
-	components: { Loader, Error, AppHeader, Infos },
+	components: { Loader, Error, ProfileMenu, PatientQueueList },
 	data: () => ({
 		meStore,
 	}),
@@ -34,13 +47,19 @@ export default {
 	scrollbar-width: thin;
 }
 
-html, body, .test-app {
+html, body, .patients-queue {
 	height: 100%;
+	overflow: hidden;
 }
 
-.patients-queue .content {
-	padding: 20px;
+.patients-queue .md-app {
+	margin: 10px;
+	height: calc(100% - 20px);
+}
+
+.patients-queue .md-app-content {
 	height: 100%;
-	background-color: white;
+	display: flex;
+	flex-direction: column;
 }
 </style>

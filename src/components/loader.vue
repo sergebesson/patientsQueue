@@ -1,17 +1,17 @@
 
 <template>
 	<transition name="fade">
-		<div id="loader"><spinner :animate="true" /></div>
+		<div id="loader"><spinner-k2000 /></div>
 	</transition>
 </template>
 
 <script>
 
-import Spinner from "./spinner";
+import SpinnerK2000 from "./spinner-k2000.vue";
 
 export default {
 	name: "Loader",
-	components: { Spinner },
+	components: { SpinnerK2000 },
 	mounted: function () {
 		const loader = document.getElementById("loader");
 		loader.parentNode.removeChild(loader);
@@ -29,7 +29,7 @@ export default {
 	z-index: 10;
 }
 
-#loader .spinner {
+#loader .spinner-k2000 {
 	max-width: 800px;
 }
 </style>

@@ -14,7 +14,7 @@ state:
         - in-queue
         - processed
         - abandoned
-    default: [ reminder-reached ]
+    default: [ in-queue ]
 
 id:
   name: id
