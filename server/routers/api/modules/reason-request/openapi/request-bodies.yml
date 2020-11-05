@@ -1,0 +1,15 @@
+reason_request_create:
+  description: Création d'un motif de la demande
+  required: true
+  content:
+    application/json:
+      schema:
+        $ref: "schemas.yml#/reason_request_create"
+
+reason_request_update:
+  description: Mise à jour d'un motif de la demande
+  required: true
+  content:
+    application/json:
+      schema:
+        $ref: "schemas.yml#/reason_request_update"

@@ -1,0 +1,38 @@
+id:
+  description: Identifiant du motif de la demande
+  type: string
+label:
+  description: Libellé du motif de la demande
+  type: string
+
+reason_request:
+  type: object
+  additionalProperties: false
+  required: [ id, label ]
+  properties:
+    id:
+      $ref: "#/id"
+    label:
+      $ref: "#/label"
+
+reason_request_create:
+  type: object
+  additionalProperties: false
+  required: [ label ]
+  properties:
+    label:
+      $ref: "#/label"
+
+reason_request_update:
+  type: object
+  additionalProperties: false
+  required: [ label ]
+  properties:
+    label:
+      $ref: "#/label"
+
+reason_request_list:
+  description: liste des motifs de la demande
+  type: array
+  items:
+    $ref: "#/reason_request"

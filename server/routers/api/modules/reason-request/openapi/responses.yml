@@ -1,0 +1,13 @@
+reason_request:
+  description: Détail du motif de la demande
+  content:
+    application/json:
+      schema:
+        $ref: "./schemas.yml#/reason_request"
+
+reason_request_list:
+  description: Liste des motifs de la demande
+  content:
+    application/json:
+      schema:
+        $ref: "./schemas.yml#/reason_request_list"

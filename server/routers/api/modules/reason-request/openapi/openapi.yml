@@ -1,0 +1,57 @@
+openapi: 3.0.0
+info:
+  title: Gestion des motifs de la demande
+  version: 1.0.0
+tags:
+  - name: reason-request
+    description: Gestion des motifs de la demande
+
+paths:
+  /:
+    summary: Gestion des motifs de la demande
+    description: Gestion des motifs de la demande
+    get:
+      tags: [ reason-request ]
+      summary: Liste des motifs de la demande
+      description: Récupération de la liste des motifs de la demande
+      responses:
+        200:
+          $ref: "responses.yml#/reason_request_list"
+    post:
+      tags: [ reason-request ]
+      summary: Création d'un motif de la demande
+      description: Création d'un motif de la demande
+      requestBody:
+        $ref: "request-bodies.yml#/reason_request_create"
+      responses:
+        201:
+          $ref: "responses.yml#/reason_request"
+
+  /{id}:
+    summary: Gestion d'un motif de la demande
+    description: Gestion d'un motif de la demande
+    parameters:
+      - $ref: "parameters.yml#/id"
+    get:
+      tags: [ reason-request ]
+      summary: Récupération d'un motif de la demande
+      description: Récupération d'un motif de la demande
+      responses:
+        200:
+          $ref: "responses.yml#/reason_request"
+    patch:
+      tags: [ reason-request ]
+      summary: Modification d'un motif de la demande
+      description: Modification d'un motif de la demande
+      requestBody:
+        $ref: "request-bodies.yml#/reason_request_update"
+      responses:
+        200:
+          $ref: "responses.yml#/reason_request"
+    delete:
+      tags: [ reason-request ]
+      summary: Suppression d'un motif de la demande
+      description: Suppression d'un motif de la demande
+      responses:
+        204:
+          description: motif de la demande supprimé
