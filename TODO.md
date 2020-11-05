@@ -2,7 +2,6 @@
 
 ## TODO
 
-* Ajout de l'API de gestion des `reasonRequest`
 * Modification données de patientQueue :
   * patientQueue.phoneNumbers : n'est plus une list mais juste un numéro, renommé en phoneNumber
   * patientQueue.medicalInformation : Codification du motif de la demande (renommé en reasonRequest) et ajout d'un détail du motif de la demande
@@ -11,7 +10,7 @@
 
 ## ON GOING
 
-* Ajout d'un nouveau store `reasonRequest` avec juste key et label
+* Ajout de l'API de gestion des `reasonRequest`
 
 ## DONE
 
@@ -19,6 +18,7 @@
 * Création du store `patientsQueue`
 * Création du module api `patientsQueue`
 * iu - liste des patientQueue en cours
+* Ajout d'un nouveau store `reasonRequest` avec juste id et label
 
 ## Info
 
