@@ -19,6 +19,7 @@ const patientJsonSchema = {
 		school: { type: "string" },
 		class: { type: "string" },
 		phoneNumber: { type: "string", pattern: "^(0|\\+33)[1-9]([-. ]?[0-9]{2}){4}$" },
+		email: { type: "string", format: "email" },
 	},
 	additionalProperties: false,
 	required: [ "name" ],
