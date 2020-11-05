@@ -18,10 +18,7 @@ const patientJsonSchema = {
 		dateOfBirth: { type: "string", format: "date" },
 		school: { type: "string" },
 		class: { type: "string" },
-		phoneNumbers: {
-			type: "array",
-			items: { type: "string", pattern: "^(0|\\+33)[1-9]([-. ]?[0-9]{2}){4}$" },
-		},
+		phoneNumber: { type: "string", pattern: "^(0|\\+33)[1-9]([-. ]?[0-9]{2}){4}$" },
 	},
 	additionalProperties: false,
 	required: [ "name" ],

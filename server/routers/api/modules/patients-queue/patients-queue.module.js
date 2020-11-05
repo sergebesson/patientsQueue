@@ -14,7 +14,7 @@ const authorizedRoutes = {
 	],
 };
 
-function routerFactory({ patientsQueueStore }) {
+function routerFactory({ stores: { patientsQueueStore } }) {
 	// eslint-disable-next-line new-cap
 	const router = express.Router();
 	const patientsQueueMiddleware = new PatientsQueueMiddleware({ patientsQueueStore });
