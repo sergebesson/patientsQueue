@@ -1,3 +1,27 @@
+name:
+  description: Nom du patient en file d'attente
+  type: string
+first_name:
+  description: Prénom du patient en file d'attente
+  type: string
+date_of_birth:
+  description: Date de naissance du patient en file d'attente
+  type: string
+  format: date
+school:
+  description: Ecole du patient en file d'attente
+  type: string
+class:
+  description: Classe actuelle du patient en file d'attente
+  type: string
+phone_number:
+  description: Numéro de téléphone du patient en file d'attente
+  type: string
+  pattern: "^(0|\\+33)[1-9]([-. ]?[0-9]{2}){4}$"
+email:
+  description: Mail du patient en file d'attente
+  type: string
+  format: email
 
 patient:
   description: Informations sur le patient en file d'attente
@@ -6,30 +30,19 @@ patient:
   required: [ name ]
   properties:
     name:
-      description: Nom du patient en file d'attente
-      type: string
+      $ref: "#/name"
     first_name:
-      description: Prénom du patient en file d'attente
-      type: string
+      $ref: "#/first_name"
     date_of_birth:
-      description: Date de naissance du patient en file d'attente
-      type: string
-      format: date
+      $ref: "#/date_of_birth"
     school:
-      description: Ecole du patient en file d'attente
-      type: string
+      $ref: "#/school"
     class:
-      description: Classe actuelle du patient en file d'attente
-      type: string
+      $ref: "#/class"
     phone_number:
-      description: Numéro de téléphone du patient en file d'attente
-      type: string
-      pattern: "^(0|\\+33)[1-9]([-. ]?[0-9]{2}){4}$"
+      $ref: "#/phone_number"
     email:
-      description: Mail du patient en file d'attente
-      type: string
-      format: email
-
+      $ref: "#/email"
 
 patient_update:
   description: Informations sur le patient en file d'attente
@@ -37,26 +50,16 @@ patient_update:
   additionalProperties: false
   properties:
     name:
-      description: Nom du patient en file d'attente
-      type: string
+      $ref: "#/name"
     first_name:
-      description: Prénom du patient en file d'attente
-      type: string
+      $ref: "#/first_name"
     date_of_birth:
-      description: Date de naissance du patient en file d'attente
-      type: string
-      format: date
+      $ref: "#/date_of_birth"
     school:
-      description: Ecole du patient en file d'attente
-      type: string
+      $ref: "#/school"
     class:
-      description: Classe actuelle du patient en file d'attente
-      type: string
+      $ref: "#/class"
     phone_number:
-      description: Numéro de téléphone du patient en file d'attente
-      type: string
-      pattern: "^(0|\\+33)[1-9]([-. ]?[0-9]{2}){4}$"
+      $ref: "#/phone_number"
     email:
-      description: Mail du patient en file d'attente
-      type: string
-      format: email
+      $ref: "#/email"

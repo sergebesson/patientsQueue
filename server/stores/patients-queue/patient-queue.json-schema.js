@@ -60,11 +60,12 @@ const contactsJsonSchema = {
 		type: "object",
 		properties: {
 			_id: { type: "string" },
+			type: { type: "string", enum: [ "sms", "email", "phone", "face-to-face", "other" ] },
 			date: { type: "string", format: "date-time" },
 			information: { type: "string" },
 		},
 		additionalProperties: false,
-		required: [ "_id", "date", "information" ],
+		required: [ "_id", "type", "date", "information" ],
 	},
 };
 

@@ -1,24 +1,36 @@
 
+request_from:
+  description: La personne qui demande le bilan pour le patient en file d'attente
+  type: string
+reason_request_id:
+  description: Identifiant du motif de la demande pour le patient en file d'attente
+  type: string
+reason_request_label:
+  description: Libellé du motif de la demande pour le patient en file d'attente
+  type: string
+reason_request_detail:
+  description: Détail du motif de la demande pour le patient en file d'attente
+  type: string
+doctor:
+  description: Docteur traitant du patient en file d'attente
+  type: string
+
+
 medical_information:
   description: Informations médicale sur le patient en file d'attente
   type: object
   additionalProperties: false
   properties:
     request_from:
-      description: La personne qui demande le bilan pour le patient en file d'attente
-      type: string
+      $ref: "#/request_from"
     reason_request_id:
-      description: Identifiant du motif de la demande pour le patient en file d'attente
-      type: string
+      $ref: "#/reason_request_id"
     reason_request_label:
-      description: Libellé du motif de la demande pour le patient en file d'attente
-      type: string
+      $ref: "#/reason_request_label"
     reason_request_detail:
-      description: Détail du motif de la demande pour le patient en file d'attente
-      type: string
+      $ref: "#/reason_request_detail"
     doctor:
-      description: Docteur traitant du patient en file d'attente
-      type: string
+      $ref: "#/doctor"
 
 medical_information_create_or_update:
   description: Informations médicale sur le patient en file d'attente
@@ -26,14 +38,10 @@ medical_information_create_or_update:
   additionalProperties: false
   properties:
     request_from:
-      description: La personne qui demande le bilan pour le patient en file d'attente
-      type: string
+      $ref: "#/request_from"
     reason_request_id:
-      description: Identifiant du motif de la demande pour le patient en file d'attente
-      type: string
+      $ref: "#/reason_request_id"
     reason_request_detail:
-      description: Détail du motif de la demande pour le patient en file d'attente
-      type: string
+      $ref: "#/reason_request_detail"
     doctor:
-      description: Docteur traitant du patient en file d'attente
-      type: string
+      $ref: "#/doctor"

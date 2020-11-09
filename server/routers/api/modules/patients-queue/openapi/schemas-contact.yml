@@ -1,29 +1,46 @@
 
+id:
+  description: Identifiant du contact
+  type: string
+type:
+  description: Type de contact
+  type: string
+  enum: [ "sms", "email", "phone", "face-to-face", "other" ]
+date:
+  description: Date du contact
+  type: string
+  format: date-time
+information:
+  description: Information échangée pendant le contact
+  type: string
+
 contact:
   description: Détail d'un contact eut avec le patient en file d'attente
   type: object
   additionalProperties: false
-  required: [ id, date, information ]
+  required: [ id, type, date, information ]
   properties:
     id:
-      type: string
+      $ref: "#/id"
+    type:
+      $ref: "#/type"
     date:
-      type: string
-      format: date-time
+      $ref: "#/date"
     information:
-      type: string
+      $ref: "#/information"
 
 contact_create:
   description: Création d'un contact eut avec le patient en file d'attente
   type: object
   additionalProperties: false
-  required: [ date, information ]
+  required: [ type, date, information ]
   properties:
+    type:
+      $ref: "#/type"
     date:
-      type: string
-      format: date-time
+      $ref: "#/date"
     information:
-      type: string
+      $ref: "#/information"
 
 contact_list:
   description: Liste des contacts eut avec le patient en file d'attente

@@ -1,5 +1,6 @@
 "use strict";
 
+const _ = require("lodash");
 const path = require("path");
 const { JsonDb } = require("@sbesson/json-db");
 
@@ -69,9 +70,10 @@ class PatientsQueueStore {
 	}
 
 	updateReasonRequestLabel(patientQueue) {
-		if (patientQueue.medicalInformation.reasonRequestId) {
+		const reasonRequestId = _.get(patientQueue, "medicalInformation.reasonRequestId");
+		if (reasonRequestId) {
 			patientQueue.medicalInformation.reasonRequestLabel =
-				this.reasonRequestStore.get(patientQueue.medicalInformation.reasonRequestId).label;
+				this.reasonRequestStore.get(reasonRequestId).label;
 		}
 	}
 

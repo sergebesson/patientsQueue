@@ -1,6 +1,13 @@
 
+login:
+  description: Identifiant (login) de l'orthophoniste
+  type: string
+name:
+  description: Nom de l'orthophoniste
+  type: string
+
 visible_by:
-  description: liste des orthophonistes pouvant voir le patient en file d'attente
+  description: Liste des orthophonistes pouvant voir le patient en file d'attente
   anyOf:
     - type: array
       items:
@@ -9,8 +16,8 @@ visible_by:
         required: [ "login", "name" ]
         properties:
           login:
-            type: string
+            $ref: "#/login"
           name:
-            type: string
+            $ref: "#/name"
     - type: string
       enum: [ ALL ]

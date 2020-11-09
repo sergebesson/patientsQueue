@@ -1,9 +1,9 @@
 id:
-  description: identifiant du patient en file d'attente
+  description: Identifiant du patient en file d'attente
   type: string
 
 availability:
-  description: disponibilité du patient en file d'attente
+  description: Disponibilité du patient en file d'attente
   type: string
 
 additional_information:
@@ -75,11 +75,11 @@ patient_queue_list:
     total_pages:
       $ref: "../../../openapi/schemas.yml#/total_pages"
     total_patients_queue:
-      description: nombre de patient en file d'attente au total
+      description: Nombre de patient en file d'attente au total
       type: integer
       format: int32
     patients_queue:
-      description: liste des patients en file d'attente
+      description: Liste des patients en file d'attente
       type: array
       items:
         $ref: "#/patient_queue"

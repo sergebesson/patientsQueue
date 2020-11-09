@@ -1,3 +1,10 @@
+type:
+  description: Type de l'état
+  type: string
+  enum: [ "in-queue", "processed", "abandoned" ]
+description:
+  description: Information sur l'état
+  type: string
 
 state:
   description: Etat du patient en file d'attente
@@ -6,10 +13,9 @@ state:
   required: [ "type" ]
   properties:
     type:
-      type: string
-      enum: [ "in-queue", "processed", "abandoned" ]
+      $ref: "#/type"
     description:
-      type: string
+      $ref: "#/description"
 
 state_description:
   description: Information sur le changement d'état
@@ -18,4 +24,4 @@ state_description:
   required: [ description ]
   properties:
     description:
-      type: string
+      $ref: "#/description"

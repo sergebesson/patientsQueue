@@ -110,6 +110,7 @@ class PatientsQueueMiddleware {
 
 		try {
 			const contact = await patientQueue.addContact({
+				type: request.body.type,
 				date: request.body.date,
 				information: request.body.information,
 			});
