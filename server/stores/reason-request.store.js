@@ -1,10 +1,12 @@
 "use strict";
 
 const path = require("path");
+const EventEmitter = require("events");
 const { JsonDb } = require("@sbesson/json-db");
 
-class ReasonRequestStore {
+class ReasonRequestStore extends EventEmitter {
 	constructor({ configLoader }) {
+		super();
 		const directory = configLoader.getValue("storage.databaseDirectory");
 		this.structureJsonDb = {
 			jsonSchema: {
@@ -45,16 +47,19 @@ class ReasonRequestStore {
 
 	async insert(label) {
 		const { document: reasonRequest } = await this.jsonDb.insert({ label });
+		this.emit("insert", reasonRequest);
 		return reasonRequest;
 	}
 
 	async update(_id, label) {
-		const { document: reasonRequestUpdate } = await this.jsonDb.update({ _id, label });
-		return reasonRequestUpdate;
+		const { document: reasonRequest } = await this.jsonDb.update({ _id, label });
+		this.emit("update", reasonRequest);
+		return reasonRequest;
 	}
 
 	async delete(_id) {
-		return await this.jsonDb.delete(_id);
+		await this.jsonDb.delete(_id);
+		this.emit("delete", _id);
 	}
 }
 

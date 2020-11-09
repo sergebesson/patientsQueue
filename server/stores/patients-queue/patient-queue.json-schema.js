@@ -29,7 +29,9 @@ const medicalInformationJsonSchema = {
 	type: "object",
 	properties: {
 		requestFrom: { type: "string" },
-		requestFor: { type: "string" },
+		reasonRequestId: { type: "string" },
+		reasonRequestLabel: { type: "string" },
+		reasonRequestDetail: { type: "string" },
 		doctor: { type: "string" },
 	},
 	additionalProperties: false,

@@ -40,7 +40,7 @@ patient_queue_create:
     patient:
       $ref: "schemas-patient.yml#/patient"
     medical_information:
-      $ref: "schemas-medical-information.yml#/medical_information"
+      $ref: "schemas-medical-information.yml#/medical_information_create_or_update"
     availability:
       $ref: "#/availability"
     visible_by:
@@ -55,7 +55,7 @@ patient_queue_update:
     patient:
       $ref: "schemas-patient.yml#/patient_update"
     medical_information:
-      $ref: "schemas-medical-information.yml#/medical_information"
+      $ref: "schemas-medical-information.yml#/medical_information_create_or_update"
     availability:
       $ref: "#/availability"
     visible_by:

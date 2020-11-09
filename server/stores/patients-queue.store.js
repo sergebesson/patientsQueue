@@ -7,9 +7,10 @@ const { PatientQueue } = require("./patients-queue/patient-queue");
 const { patientQueueJsonSchema } = require("./patients-queue/patient-queue.json-schema");
 
 class PatientsQueueStore {
-	constructor({ configLoader }) {
+	constructor({ configLoader, logger }) {
 		const directory = configLoader.getValue("storage.databaseDirectory");
 		this.config = configLoader.getValue("patientsQueue");
+		this.logger = logger;
 		this.structureJsonDb = {
 			jsonSchema: patientQueueJsonSchema,
 			searchIndex: [
@@ -23,7 +24,7 @@ class PatientsQueueStore {
 		this._usersExpressBasicAuth = null;
 	}
 
-	async initialize() {
+	async initialize({ stores: { reasonRequestStore } }) {
 		try {
 			await this.jsonDb.loadCollection();
 		} catch (error) {
@@ -32,6 +33,11 @@ class PatientsQueueStore {
 			}
 			await this.jsonDb.create(this.structureJsonDb);
 		}
+
+		reasonRequestStore.on(
+			"update", (reasonRequest) => this.updateAllReasonRequest(reasonRequest),
+		);
+		this.reasonRequestStore = reasonRequestStore;
 	}
 
 	search({ query, search }) {
@@ -45,6 +51,7 @@ class PatientsQueueStore {
 	}
 
 	async insert({ patientQueue }) {
+		this.updateReasonRequestLabel(patientQueue);
 		return await PatientQueue.createNew({
 			jsonDb: this.jsonDb, recallDuration: this.config.recallDuration, patientQueue,
 		});
@@ -57,7 +64,37 @@ class PatientsQueueStore {
 		if (!patientQueue) {
 			throw new Error("patientNotfound");
 		}
+		this.updateReasonRequestLabel(patientQueueUpdate);
 		return await patientQueue.update(patientQueueUpdate);
+	}
+
+	updateReasonRequestLabel(patientQueue) {
+		if (patientQueue.medicalInformation.reasonRequestId) {
+			patientQueue.medicalInformation.reasonRequestLabel =
+				this.reasonRequestStore.get(patientQueue.medicalInformation.reasonRequestId).label;
+		}
+	}
+
+	updateAllReasonRequest(reasonRequest) {
+		this.jsonDb.collection.find(
+			{ medicalInformation: { reasonRequestId: reasonRequest._id } },
+		).forEach(async(patientQueue) => {
+			try {
+				await this.update({
+					id: patientQueue._id,
+					patientQueue: {
+						medicalInformation: { reasonRequestLabel: reasonRequest.label },
+					},
+				});
+			} catch (error) {
+				this.logger.log(
+					"error",
+					`PatientsQueueStore::updateAllReasonRequest - Impossible de mettre a jour le patient queue '${ patientQueue._id }'`,
+					error,
+				);
+			}
+		});
+
 	}
 }
 
