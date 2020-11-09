@@ -20,7 +20,7 @@ contact_create:
   content:
     application/json:
       schema:
-        $ref: "schemas.yml#/contact_create"
+        $ref: "schemas-contact.yml#/contact_create"
 
 state_description:
   description: Information sur le changement d'état
@@ -28,4 +28,4 @@ state_description:
   content:
     application/json:
       schema:
-        $ref: "schemas.yml#/state_description"
+        $ref: "schemas-state.yml#/state_description"

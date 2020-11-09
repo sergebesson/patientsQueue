@@ -1,0 +1,15 @@
+
+dates:
+  description: dates de création et de rappel du patient en file d'attente
+  type: object
+  additionalProperties: false
+  required: [ creation, reminder ]
+  properties:
+    creation:
+      description: Date de création du patient dans la file d'attente
+      type: string
+      format: date-time
+    reminder:
+      description: Date du prochain rappel du patient en file d'attente
+      type: string
+      format: date

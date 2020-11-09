@@ -17,11 +17,11 @@ contact:
   content:
     application/json:
       schema:
-        $ref: "./schemas.yml#/contact"
+        $ref: "./schemas-contact.yml#/contact"
 
 contact_list:
   description: Liste des contacts eut avec le patient en file d'attente
   content:
     application/json:
       schema:
-        $ref: "./schemas.yml#/contact_list"
+        $ref: "./schemas-contact.yml#/contact_list"

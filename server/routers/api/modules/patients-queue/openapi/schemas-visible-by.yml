@@ -1,0 +1,16 @@
+
+visible_by:
+  description: liste des orthophonistes pouvant voir le patient en file d'attente
+  anyOf:
+    - type: array
+      items:
+        type: object
+        additionalProperties: false
+        required: [ "login", "name" ]
+        properties:
+          login:
+            type: string
+          name:
+            type: string
+    - type: string
+      enum: [ ALL ]

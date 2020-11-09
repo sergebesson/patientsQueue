@@ -1,0 +1,32 @@
+
+contact:
+  description: Détail d'un contact eut avec le patient en file d'attente
+  type: object
+  additionalProperties: false
+  required: [ id, date, information ]
+  properties:
+    id:
+      type: string
+    date:
+      type: string
+      format: date-time
+    information:
+      type: string
+
+contact_create:
+  description: Création d'un contact eut avec le patient en file d'attente
+  type: object
+  additionalProperties: false
+  required: [ date, information ]
+  properties:
+    date:
+      type: string
+      format: date-time
+    information:
+      type: string
+
+contact_list:
+  description: Liste des contacts eut avec le patient en file d'attente
+  type: array
+  items:
+    $ref: "#/contact"

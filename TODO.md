@@ -9,7 +9,8 @@
 
 ## ON GOING
 
-* Refactoring openapi de patientQueue
+* Modification données de patientQueue :
+  * patientQueue.medicalInformation : Codification du motif de la demande (renommé en reasonRequest) et ajout d'un détail du motif de la demande
 
 ## DONE
 
@@ -19,6 +20,7 @@
 * iu - liste des patientQueue en cours
 * Ajout d'un nouveau store `reasonRequest` avec juste id et label
 * Ajout de l'API de gestion des `reasonRequest`
+* Refactoring openapi de patientQueue
 * Modification données de patientQueue :
   * patientQueue.patient.phoneNumbers : n'est plus une list mais juste un numéro, renommé en phoneNumber
   * patientQueue.patient.email : à ajouter

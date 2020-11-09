@@ -1,0 +1,15 @@
+
+medical_information:
+  description: Informations médicale sur le patient en file d'attente
+  type: object
+  additionalProperties: false
+  properties:
+    request_from:
+      description: La personne qui demande le bilan pour le patient en file d'attente
+      type: string
+    request_for:
+      description: Le pourquoi on demande un bilan pour le patient en file d'attente
+      type: string
+    doctor:
+      description: Docteur traitant du patient en file d'attente
+      type: string
