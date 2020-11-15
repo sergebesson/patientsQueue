@@ -22,7 +22,7 @@
 				</div>
 			</transition-group>
 
-			<div v-show="loadingData" class="spinner">
+			<div v-show="loadingData" class="infinite-list-item-spinner">
 				<slot name="spinner">
 					<spinner-k2000 />
 				</slot>
@@ -105,50 +105,70 @@ export default {
 };
 </script>
 
-<style>
-	.infinite-list {
+<style lang="scss">
+
+.infinite-list {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+
+	@mixin row {
 		display: flex;
-		flex-direction: column;
-		height: 100%;
+		flex-wrap: wrap;
+	}
+	@mixin col {
+		flex: 1 1;
+		font-size: 14px;
+		display: flex;
 	}
 
-	.infinite-list .md-divider {
+	&-header {
+		@include row;
+
+		div {
+			@include col;
+		}
+	}
+
+	.md-divider {
 		min-height: 1px;
 	}
 
-	.infinite-list .md-list {
+	&-items {
 		overflow-y: scroll;
 		scroll-snap-type: y mandatory;
 		height: 100%;
 		padding: 0px;
 	}
 
-	.infinite-list .md-subheader,
-	.infinite-list .md-list .md-list-item {
-		display: flex;
-		flex-wrap: wrap;
-	}
-
-	.infinite-list .md-subheader > div,
-	.infinite-list .md-list .md-list-item .md-list-item-content > div {
-		flex: 1 1;
-		font-size: 14px;
-	}
-
-	.infinite-list-transition-enter, .infinite-list-transition-leave-to {
-		opacity: 0;
-		transform: translateY(-100px);
-	}
-	.infinite-list-transition-leave-active {
-		position: absolute;
-	}
-	.infinite-list-item {
+	&-item {
 		scroll-snap-align: start;
 		transition: all 0.5s;
+
+		.md-list-item {
+			@include row;
+
+			.md-list-item-content div {
+				@include col;
+			}
+		}
+
+		&-spinner {
+			padding: 10px 0px;
+			min-height: 25px;
+		}
 	}
 
-	.infinite-list .spinner {
-		padding: 10px 0px;
-		min-height: 25px;
+	&-transition {
+		&-enter, &-leave-to {
+			opacity: 0;
+			transform: translateY(-100px);
+		}
+
+		&-leave-active {
+			position: absolute;
+		}
 	}
+}
+
 </style>

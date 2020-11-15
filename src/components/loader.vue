@@ -19,7 +19,7 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
 #loader {
 	display: flex;
 	flex-direction: column;
@@ -27,9 +27,9 @@ export default {
 	align-items: center;
 	height: 100%;
 	z-index: 10;
-}
 
-#loader .spinner-k2000 {
-	max-width: 800px;
+	.spinner-k2000 {
+		max-width: 800px;
+	}
 }
 </style>

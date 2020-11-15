@@ -14,7 +14,6 @@
     "axios": "^0.21.0",
     "change-case": "^4.1.1",
     "compression": "^1.7.4",
-    "core-js": "^3.6.5",
     "decamelize-keys": "^1.1.0",
     "ejs": "^3.1.5",
     "express": "^4.17.1",
@@ -31,7 +30,6 @@
     "swagger-ui-express": "^4.1.4",
     "traverse": "^0.6.6",
     "uniqid": "^5.2.0",
-    "vue": "^2.6.11",
     "winston": "^3.3.3"
   },
   "devDependencies": {
@@ -39,12 +37,17 @@
     "@vue/cli-plugin-eslint": "^4.5.6",
     "@vue/cli-service": "^4.5.6",
     "babel-eslint": "^10.1.0",
+    "core-js": "^3.7.0",
     "depcheck": "^1.2.0",
     "eslint": "^7.9.0",
     "eslint-plugin-json": "^2.1.2",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-vue": "^7.0.0",
-    "vue-material": "^1.0.0-beta-15"
+    "sass": "^1.29.0",
+    "sass-loader": "^10.1.0",
+    "vue": "^2.6.12",
+    "vue-material": "^1.0.0-beta-15",
+    "vue-router": "^3.4.9"
   },
   "engines": {
     "node": ">=10.1.0"

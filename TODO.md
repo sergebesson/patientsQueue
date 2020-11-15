@@ -2,9 +2,13 @@
 
 ## TODO
 
+* iu - Ajout de la liste des motifs de la demande
+* iu - Ajout de la creation, modification, suppression des motifs de la demande
+* iu - filtre sur les différents state
+
 ## ON GOING
 
-* iu - filtre sur les différents state
+* iu - Ajout d'un menu
 
 ## DONE
 
@@ -20,6 +24,8 @@
   * patientQueue.patient.email : à ajouter
   * patientQueue.medicalInformation : Codification du motif de la demande (renommé en reasonRequest) et ajout d'un détail du motif de la demande
   * patientQueue.contacts : Ajout d'un type de contact (sms, email, phone, face-to-face, other)
+* iu - Ajout de vue-router
+* iu - Ajout de sass
 
 ## Info
 

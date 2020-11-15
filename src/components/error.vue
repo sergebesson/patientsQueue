@@ -44,15 +44,21 @@ export default {
 };
 </script>
 
-<style>
-.md-dialog.error  .md-dialog-container {
-	background-color: #dd3232;
-	color: var(--md-theme-default-text-primary-on-accent, #fff);
+<style lang="scss">
+
+.md-dialog.error {
+
+	.md-dialog-container {
+		background-color: #dd3232;
+		color: var(--md-theme-default-text-primary-on-accent, #fff);
+	}
+
+	.md-dialog-content span {
+		display: block;
+		font-size: .9em;
+		color: #1212bb;
+		font-style: italic;
+	}
 }
-.md-dialog.error .md-dialog-content span {
-	display: block;
-	font-size: .9em;
-	color: #1212bb;
-	font-style: italic;
-}
+
 </style>

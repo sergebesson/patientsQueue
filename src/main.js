@@ -3,6 +3,7 @@ import VueMaterial from "vue-material";
 import "vue-material/dist/vue-material.min.css";
 import "vue-material/dist/theme/default.css";
 
+import router from "./router";
 import PatientsQueue from "./patients-queue.vue";
 import { configurationStore } from "./stores/configuration.store";
 
@@ -13,6 +14,7 @@ async function main() {
 
 	await configurationStore.load();
 	new Vue({
+		router,
 		render: createElement => createElement(PatientsQueue),
 	}).$mount("#patients-queue");
 }

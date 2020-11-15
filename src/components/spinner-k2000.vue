@@ -15,25 +15,30 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
+
 .spinner-k2000 {
+	$right: 30px;
+	$left: 20px;
 	position: relative;
-	margin: 0px 30px 0px 20px;
-	width: calc(100% - 50px);
+	margin: 0px $right 0px $left;
+	width: calc(100% - #{$right + $left});
+
+	div {
+		position: absolute;
+		background-color: inherit;
+		border-radius: 50%;
+		animation: {
+			name: spinner-k2000;
+			duration: 2s;
+			iteration-count: infinite;
+			timing-function: ease-in-out;
+			delay: 0s;
+		};
+	}
 }
 
-.spinner-k2000 div {
-	position: absolute;
-	background-color: inherit;
-	border-radius: 50%;
-	animation-name: k2000;
-	animation-duration: 2s;
-	animation-iteration-count: infinite;
-	animation-timing-function: ease-in-out;
-	animation-delay: 0s;
-}
-
-@keyframes k2000 {
+@keyframes spinner-k2000 {
 	0% {
 		left: 0%;
 		width: 10px;

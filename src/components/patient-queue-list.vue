@@ -12,18 +12,25 @@
 		line-style="simple"
 	>
 		<template #header>
-			<div>prochain contact attendu</div>
-			<div>nom</div>
-			<!--div> class </div-->
-			<!--div> reasonRequestId </div-->
-			<div>information</div>
+			<div>
+				<div>prochain contact</div>
+				<div>nom</div>
+				<div>age</div>
+				<div>class</div>
+				<div>raison</div>
+				<!-- <div>information</div> -->
+			</div>
 		</template>
 		<template #item="{ item: patientQueue }">
-			<div>{{ patientQueue.dates.reminder }}</div>
-			<div>
-				{{ patientQueue.patient.first_name }} {{ patientQueue.patient.name }}
+			<div @click="onClick(patientQueue)">
+				<div>{{ patientQueue.dates.reminder }}</div>
+				<div>
+					{{ patientQueue.patient.first_name }} {{ patientQueue.patient.name }}
+				</div>
+				<div>{{ patientQueue.patient.date_of_birth }}</div>
+				<div>{{ patientQueue.patient.class }}</div>
+				<div>{{ patientQueue.medical_information.reason_request_label }}</div>
 			</div>
-			<div>{{ patientQueue.additional_information }}</div>
 		</template>
 	</infinite-list>
 </template>
@@ -41,29 +48,36 @@ export default {
 	created: async function () {
 		await patientsQueueStore.getPatientsQueue();
 	},
+	methods: {
+		onClick: function (patientQueue) {
+			console.log(patientQueue);
+		},
+	},
 };
 </script>
 
-<style>
+<style lang="scss">
+
 .patient-queue-list {
 	border: 1px solid gainsboro;
 	border-radius: 20px 20px 0 0;
 	overflow: hidden;
+
+	.md-divider {
+		background-color: gainsboro;
+	}
+
+	.infinite-list-header {
+		background-color: ghostwhite;
+	}
+
+	.infinite-list-items {
+		background-color: white;
+	}
+
+	.infinite-list-item:nth-child(2n) {
+		background-color: ghostwhite;
+	}
 }
 
-.patient-queue-list .md-divider {
-	background-color: gainsboro;
-}
-
-.patient-queue-list .infinite-list-header {
-	background-color: ghostwhite;
-}
-
-.patient-queue-list .infinite-list-items {
-	background-color: white;
-}
-
-.patient-queues-list .infinite-list-item:nth-child(2n) {
-	background-color: ghostwhite;
-}
 </style>
