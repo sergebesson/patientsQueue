@@ -56,6 +56,28 @@ html, body {
 	overflow: hidden;
 }
 
+.infinite-list {
+	border: 1px solid gainsboro;
+	border-radius: 20px 20px 0 0;
+	overflow: hidden;
+
+	.md-divider {
+		background-color: gainsboro;
+	}
+
+	&-header {
+		background-color: ghostwhite;
+	}
+
+	&-items {
+		background-color: white;
+	}
+
+	&-item:nth-child(2n) {
+		background-color: ghostwhite;
+	}
+}
+
 .patients-queue {
 	@extend html;
 

@@ -1,7 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import PatientQueueList from "./components/patient-queue-list";
-import ReasonRequest from "./components/reason-request.vue";
+import ReasonRequestList from "./components/reason-request-list.vue";
 
 Vue.use(VueRouter);
 
@@ -16,7 +16,7 @@ const routes = [ {
 }, {
 	name: "reason-request",
 	path: "/reason-request",
-	component: ReasonRequest,
+	component: ReasonRequestList,
 } ];
 
 // const routes = [

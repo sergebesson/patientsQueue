@@ -6,10 +6,8 @@
 		:loading-data="patientsQueueStore.loading"
 		label-empty-list="Aucun patient trouvé"
 		@next-page="patientsQueueStore.nextPage()"
-		:with-header-divider="true"
 		:with-items-divider="false"
 		dense
-		line-style="simple"
 	>
 		<template #header>
 			<div>
@@ -18,7 +16,6 @@
 				<div>age</div>
 				<div>class</div>
 				<div>raison</div>
-				<!-- <div>information</div> -->
 			</div>
 		</template>
 		<template #item="{ item: patientQueue }">
@@ -55,29 +52,3 @@ export default {
 	},
 };
 </script>
-
-<style lang="scss">
-
-.patient-queue-list {
-	border: 1px solid gainsboro;
-	border-radius: 20px 20px 0 0;
-	overflow: hidden;
-
-	.md-divider {
-		background-color: gainsboro;
-	}
-
-	.infinite-list-header {
-		background-color: ghostwhite;
-	}
-
-	.infinite-list-items {
-		background-color: white;
-	}
-
-	.infinite-list-item:nth-child(2n) {
-		background-color: ghostwhite;
-	}
-}
-
-</style>

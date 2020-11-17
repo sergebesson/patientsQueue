@@ -2,12 +2,11 @@
 
 ## TODO
 
-* iu - Ajout de la creation, modification, suppression des motifs de la demande
 * iu - filtre sur les différents state
 
 ## ON GOING
 
-* iu - Ajout de la liste des motifs de la demande
+* iu - Ajout de la creation, modification, suppression des motifs de la demande
 
 ## DONE
 
@@ -26,6 +25,7 @@
 * iu - Ajout de vue-router
 * iu - Ajout de sass
 * iu - Ajout d'un menu
+* iu - Ajout de la liste des motifs de la demande
 
 ## Info
 
