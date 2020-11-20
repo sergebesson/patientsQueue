@@ -23,6 +23,7 @@ export default {
 	position: relative;
 	margin: 0px $right 0px $left;
 	width: calc(100% - #{$right + $left});
+	z-index: 10;
 
 	div {
 		position: absolute;

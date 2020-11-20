@@ -7,12 +7,20 @@
 			<md-divider v-if="withHeaderDivider" />
 		</template>
 
+		<slot name="before-items" />
+
 		<md-list
 			@scroll="onScroll"
 			class="infinite-list-items" :class="mdListClass"
 			:md-expand-single="mdExpandSingle"
 		>
 
+			<div class="infinite-list-item" v-if="$slots['first-item']">
+				<md-list-item>
+					<slot name="first-item" />
+				</md-list-item>
+				<md-divider v-if="withItemsDivider" />
+			</div>
 			<transition-group name="infinite-list-transition">
 				<div v-for="item in items" :key="item[itemKey]" class="infinite-list-item">
 					<md-list-item>
@@ -21,6 +29,12 @@
 					<md-divider v-if="withItemsDivider" />
 				</div>
 			</transition-group>
+			<div class="infinite-list-item" v-if="$slots['last-item']">
+				<md-list-item>
+					<slot name="last-item" />
+				</md-list-item>
+				<md-divider v-if="withItemsDivider" />
+			</div>
 
 			<div v-show="loadingData" class="infinite-list-item-spinner">
 				<slot name="spinner">
@@ -35,6 +49,8 @@
 			</md-list-item>
 
 		</md-list>
+
+		<slot name="after-items" />
 
 	</div>
 </template>

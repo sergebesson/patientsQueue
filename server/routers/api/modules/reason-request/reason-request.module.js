@@ -1,5 +1,6 @@
 "use strict";
 
+const _ = require("lodash");
 const express = require("express");
 const { camelCaseDeep } = require("../../services/change-case.service");
 
@@ -11,7 +12,11 @@ function routerFactory({ stores: { reasonRequestStore } }) {
 	const router = express.Router(); // eslint-disable-line new-cap
 
 	router.get("/", (request, response) => {
-		response.status(200).json(camelCaseDeep(reasonRequestStore.search({})));
+		response.status(200).json(
+			camelCaseDeep(
+				_.sortBy(reasonRequestStore.search({}), ({ label }) => label.toUpperCase()),
+			),
+		);
 	});
 
 	router.get("/:id", (request, response) => {

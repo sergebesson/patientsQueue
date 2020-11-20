@@ -6,16 +6,16 @@
 		:loading-data="patientsQueueStore.loading"
 		label-empty-list="Aucun patient trouvé"
 		@next-page="patientsQueueStore.nextPage()"
-		:with-items-divider="false"
 		dense
 	>
 		<template #header>
 			<div>
 				<div>prochain contact</div>
 				<div>nom</div>
+				<div>email</div>
 				<div>age</div>
-				<div>class</div>
-				<div>raison</div>
+				<div>classe</div>
+				<div>motif</div>
 			</div>
 		</template>
 		<template #item="{ item: patientQueue }">
@@ -24,6 +24,7 @@
 				<div>
 					{{ patientQueue.patient.first_name }} {{ patientQueue.patient.name }}
 				</div>
+				<div>{{ patientQueue.patient.email }}</div>
 				<div>{{ patientQueue.patient.date_of_birth }}</div>
 				<div>{{ patientQueue.patient.class }}</div>
 				<div>{{ patientQueue.medical_information.reason_request_label }}</div>

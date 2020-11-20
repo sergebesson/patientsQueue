@@ -3,10 +3,12 @@
 ## TODO
 
 * iu - filtre sur les différents state
+* Ajouter une adresse postal aux données du patient
+* Faire une liste de n° de telephone avec label - tel
 
 ## ON GOING
 
-* iu - Ajout de la creation, modification, suppression des motifs de la demande
+* iu - Architecture de la fiche patient avec onglet
 
 ## DONE
 
@@ -26,6 +28,7 @@
 * iu - Ajout de sass
 * iu - Ajout d'un menu
 * iu - Ajout de la liste des motifs de la demande
+* iu - Ajout de la creation, modification, suppression des motifs de la demande
 
 ## Info
 
