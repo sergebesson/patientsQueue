@@ -9,8 +9,8 @@
 </template>
 
 <script>
-import ProfileMenu from "./profile-menu";
-import { meStore } from "../stores/me.store";
+import ProfileMenu from "../profile-menu";
+import { meStore } from "../../stores/me.store";
 
 export default {
 	components: { ProfileMenu },

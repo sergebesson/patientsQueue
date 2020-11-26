@@ -29,8 +29,8 @@
 import { meStore } from "./stores/me.store";
 import Loader from "./components/loader";
 import Error from "./components/error";
-import PatientQueueProfile from "./components/patient-queue-profile";
-import PatientQueueMenu from "./components/patient-queue-menu.vue";
+import PatientQueueProfile from "./components/patient-queue/profile";
+import PatientQueueMenu from "./components/patient-queue/menu.vue";
 
 export default {
 	name: "PatientsQueue",
@@ -47,6 +47,9 @@ export default {
 
 <style lang="scss">
 
+$md-theme-default-primary: #448aff;
+$md-theme-default-accent: #ff5252;
+
 * {
 	scrollbar-width: thin;
 }
@@ -57,24 +60,27 @@ html, body {
 }
 
 .infinite-list {
-	border: 1px solid gainsboro;
+	$border-color: gainsboro;
+	$header-color: rgba($md-theme-default-primary, 10%);
+
+	border: 1px solid $border-color;
 	border-radius: 20px 20px 0 0;
 	overflow: hidden;
 
 	.md-divider {
-		background-color: gainsboro;
+		background-color: $border-color;
 	}
 
 	&-header {
-		background-color: ghostwhite;
-	}
-
-	&-items {
-		background-color: white;
+		background-color: $header-color;
 	}
 
 	&-item:nth-child(2n) {
-		background-color: ghostwhite;
+		background-color: $header-color;
+	}
+
+	.warning {
+		background-color: rgba($md-theme-default-accent, 10%);
 	}
 }
 

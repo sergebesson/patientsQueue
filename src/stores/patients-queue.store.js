@@ -1,8 +1,9 @@
+import _ from "lodash";
 import axios from "axios";
+import moment from "moment";
 import { eventBus, eventName } from "../eventBus";
 import { configurationStore } from "./configuration.store";
 
-// eslint-disable-next-line no-unused-vars
 const patientsQueueStore = {
 	configuration: {
 		pageSize: 30,
@@ -14,15 +15,16 @@ const patientsQueueStore = {
 		totalPages: 1,
 		search: "",
 		patientsQueue: [],
-		loading: false,
-		updating: false,
+		loadingList: false,
+		updatingList: false,
+		loadingPatientQueue: false,
 	},
 	// page
 	get page() {
 		return this.state.page;
 	},
 	async nextPage() {
-		if (this.state.loading || this.state.page >= this.state.totalPages) {
+		if (this.state.loadingList || this.state.page >= this.state.totalPages) {
 			return;
 		}
 		await this.getPatientsQueue(this.state.page + 1);
@@ -47,19 +49,23 @@ const patientsQueueStore = {
 	get pageSize() {
 		return this.configuration.pageSize;
 	},
-	// loading
-	get loading() {
-		return this.state.loading;
+	// loadingList
+	get loadingList() {
+		return this.state.loadingList;
 	},
-	// updating
-	get updating() {
-		return this.state.updating;
+	// updatingList
+	get updatingList() {
+		return this.state.updatingList;
+	},
+	// loadingPatientQueue
+	get loadingPatientQueue() {
+		return this.state.loadingPatientQueue;
 	},
 
 	// Méthode
 	async getPatientsQueue(page = 1) {
 		try {
-			this.state.loading = true;
+			this.state.loadingList = true;
 			const params = {
 				page_size: this.pageSize,
 				page,
@@ -75,20 +81,21 @@ const patientsQueueStore = {
 				   et on reste en loading */
 				return;
 			}
+			const patientsQueue = data.patients_queue.map(this._computeAttributsPatientQueue);
 			this.state.page = data.page;
 			this.state.totalPages = data.total_pages;
 			this.state.patientsQueue = this.state.page === 1 ?
-				data.patients_queue :
-				this.state.patientsQueue.concat(data.patients_queue);
+				patientsQueue :
+				this.state.patientsQueue.concat(patientsQueue);
 		} catch (error) {
 			eventBus.$emit(eventName.ERROR, "Impossible de récupérer la liste des patients", error);
 		} finally {
-			this.state.loading = false;
+			this.state.loadingList = false;
 		}
 	},
 
 	async update() {
-		this.state.updating = true;
+		this.state.updatingList = true;
 		try {
 			const params = {
 				page: 1,
@@ -108,8 +115,33 @@ const patientsQueueStore = {
 			this.state.totalPages = Math.ceil(totalPatientsQueue / this.pageSize);
 			this.state.patientsQueue = patientsQueue;
 		} finally {
-			this.state.updating = false;
+			this.state.updatingList = false;
 		}
+	},
+
+	async getPatientQueue(patientQueueId) {
+		try {
+			this.state.loadingPatientQueue = true;
+			const { data: patientQueue } = await axios({
+				method: "get", url: `${ this.configuration.apiUrl }/${ patientQueueId }`,
+			});
+			return this._computeAttributsPatientQueue(patientQueue);
+		} catch (error) {
+			eventBus.$emit(
+				eventName.ERROR, `Impossible de récupérer le patient ${ patientQueueId }`, error,
+			);
+		} finally {
+			this.state.loadingPatientQueue = false;
+		}
+	},
+
+	_computeAttributsPatientQueue(patientQueue) {
+		return _.merge(patientQueue, {
+			patient: {
+				fullName: `${ patientQueue.patient.first_name} ${patientQueue.patient.last_name}`,
+			},
+			isLate:	moment(patientQueue.dates.reminder, "YYYY-MM-DD") < Date.now(),
+		});
 	},
 };
 

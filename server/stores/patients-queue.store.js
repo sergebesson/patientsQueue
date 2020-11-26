@@ -15,7 +15,7 @@ class PatientsQueueStore {
 		this.structureJsonDb = {
 			jsonSchema: patientQueueJsonSchema,
 			searchIndex: [
-				"patient.name", "patient.firstName", "patient.school", "medicalInformation.doctor",
+				"patient.lastName", "patient.firstName", "patient.school", "medicalInformation.doctor",
 			],
 		};
 

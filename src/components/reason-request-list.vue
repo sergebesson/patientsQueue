@@ -8,31 +8,40 @@
 			dense
 		>
 			<template #header>
-				<div>motif de la demande</div>
+				<md-subheader>
+					<div>motif de la demande</div>
+				</md-subheader>
 			</template>
 			<template #before-items>
-				<spinner-k2000 class="spinner-update" v-show="showSpinner"/>
-			</template>
-			<template #first-item>
-				<md-field md-inline>
-					<label>Veuillez saisir un motif</label>
-					<md-input v-model="newReasonRequestLabel" @keyup.enter="create()"/>
-				</md-field>
-				<md-button class="md-icon-button"
-					:disabled="newReasonRequestLabel === ''"
-					@click="create()"
-				>
-					<md-icon>add</md-icon>
-				</md-button>
+				<md-list class="before-items md-dense">
+					<spinner-k2000 class="spinner-update" :animate="updating"/>
+					<md-list-item class="warning">
+						<md-field md-inline>
+							<label>Veuillez saisir un motif</label>
+							<md-input v-model="newReasonRequestLabel" @keyup.enter="create()"/>
+						</md-field>
+						<md-button class="md-icon-button"
+							:disabled="newReasonRequestLabel === '' || updating"
+							@click="create()"
+						>
+							<md-icon>add</md-icon>
+						</md-button>
+					</md-list-item>
+				</md-list>
 			</template>
 			<template #item="{ item: reasonRequest }">
-				<md-field md-inline>
-					<label>Veuillez saisir un motif</label>
-					<md-input v-model="reasonRequest.label" @change="update(reasonRequest)" />
-				</md-field>
-				<md-button class="md-icon-button" @click="reasonRequestToDelete = reasonRequest">
-					<md-icon>delete_outline</md-icon>
-				</md-button>
+				<md-list-item>
+					<md-field md-inline>
+						<label>Veuillez saisir un motif</label>
+						<md-input v-model="reasonRequest.label" @change="update(reasonRequest)" />
+					</md-field>
+					<md-button class="md-icon-button"
+						:disabled="updating"
+						@click="reasonRequestToDelete = reasonRequest"
+					>
+						<md-icon>delete_outline</md-icon>
+					</md-button>
+				</md-list-item>
 			</template>
 		</infinite-list>
 		<md-dialog-confirm
@@ -72,7 +81,7 @@ export default {
 				return `Êtes vous sur de vouloir supprimer le motif <strong>${ vm.reasonRequestToDelete.label }</strong> ?`;
 			}
 		},
-		showSpinner: (vm) => vm.store.loading ||
+		updating: (vm) => vm.store.loading ||
 			vm.store.updating ||
 			vm.store.deleting ||
 			vm.store.creating,
@@ -98,6 +107,10 @@ export default {
 <style lang="scss">
 .reason-request-list {
 	height: 100%;
+
+	.before-items.md-dense {
+		padding: 0px;
+	}
 
 	.spinner-update {
 		top: -3px;

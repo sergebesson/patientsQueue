@@ -13,7 +13,7 @@ const datesJsonSchema = {
 const patientJsonSchema = {
 	type: "object",
 	properties: {
-		name: { type: "string" },
+		lastName: { type: "string" },
 		firstName: { type: "string" },
 		dateOfBirth: { type: "string", format: "date" },
 		school: { type: "string" },
@@ -22,7 +22,7 @@ const patientJsonSchema = {
 		email: { type: "string", format: "email" },
 	},
 	additionalProperties: false,
-	required: [ "name" ],
+	required: [ "lastName" ],
 };
 
 const medicalInformationJsonSchema = {

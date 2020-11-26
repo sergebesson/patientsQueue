@@ -1,4 +1,4 @@
-name:
+last_name:
   description: Nom du patient en file d'attente
   type: string
 first_name:
@@ -27,10 +27,10 @@ patient:
   description: Informations sur le patient en file d'attente
   type: object
   additionalProperties: false
-  required: [ name ]
+  required: [ last_name ]
   properties:
-    name:
-      $ref: "#/name"
+    last_name:
+      $ref: "#/last_name"
     first_name:
       $ref: "#/first_name"
     date_of_birth:
@@ -49,8 +49,8 @@ patient_update:
   type: object
   additionalProperties: false
   properties:
-    name:
-      $ref: "#/name"
+    last_name:
+      $ref: "#/last_name"
     first_name:
       $ref: "#/first_name"
     date_of_birth:

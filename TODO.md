@@ -2,13 +2,17 @@
 
 ## TODO
 
+* iu - Détail - onglet patient
+* iu - Détail - onglet medical
+* iu - Détail - onglet contacts
+* iu - Détail - onglet autres
 * iu - filtre sur les différents state
 * Ajouter une adresse postal aux données du patient
 * Faire une liste de n° de telephone avec label - tel
 
 ## ON GOING
 
-* iu - Architecture de la fiche patient avec onglet
+* iu - recherche patient
 
 ## DONE
 
@@ -29,6 +33,7 @@
 * iu - Ajout d'un menu
 * iu - Ajout de la liste des motifs de la demande
 * iu - Ajout de la creation, modification, suppression des motifs de la demande
+* iu - Architecture de la fiche patient avec onglet
 
 ## Info
 

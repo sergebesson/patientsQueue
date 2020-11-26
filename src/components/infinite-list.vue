@@ -1,9 +1,9 @@
 <template>
 	<div class="infinite-list">
 		<template v-if="$slots.header">
-			<md-subheader class="infinite-list-header md-primary" >
+			<div class="infinite-list-header md-primary" >
 				<slot name="header" />
-			</md-subheader>
+			</div>
 			<md-divider v-if="withHeaderDivider" />
 		</template>
 
@@ -16,23 +16,17 @@
 		>
 
 			<div class="infinite-list-item" v-if="$slots['first-item']">
-				<md-list-item>
-					<slot name="first-item" />
-				</md-list-item>
+				<slot name="first-item" />
 				<md-divider v-if="withItemsDivider" />
 			</div>
 			<transition-group name="infinite-list-transition">
 				<div v-for="item in items" :key="item[itemKey]" class="infinite-list-item">
-					<md-list-item>
-						<slot name="item" :item="item" />
-					</md-list-item>
+					<slot name="item" :item="item" />
 					<md-divider v-if="withItemsDivider" />
 				</div>
 			</transition-group>
 			<div class="infinite-list-item" v-if="$slots['last-item']">
-				<md-list-item>
-					<slot name="last-item" />
-				</md-list-item>
+				<slot name="last-item" />
 				<md-divider v-if="withItemsDivider" />
 			</div>
 
@@ -42,11 +36,13 @@
 				</slot>
 			</div>
 
-			<md-list-item v-if="!loadingData && items.length === 0">
+			<div v-if="!loadingData && items.length === 0">
 				<slot name="empty-list" >
-					<span class="md-caption">{{ labelEmptyList }}</span>
+					<md-list-item>
+						<div cell class="md-caption">{{ labelEmptyList }}</div>
+					</md-list-item>
 				</slot>
-			</md-list-item>
+			</div>
 
 		</md-list>
 
@@ -106,9 +102,9 @@ export default {
 	},
 	methods: {
 		addSizeOfTheScrollBarToTheRightPaddingOfTheHeaderElement() {
-			const headerElement = this.$el.querySelector(".md-subheader");
-			const listElement = this.$el.querySelector(".md-list");
-			const childElement = this.$el.querySelector(".md-list > *");
+			const headerElement = this.$el.querySelector(".infinite-list-header");
+			const listElement = this.$el.querySelector(".infinite-list-items");
+			const childElement = this.$el.querySelector(".infinite-list-items > *");
 			const padding = parseInt(
 				getComputedStyle(headerElement).getPropertyValue("padding-right"), 10,
 			) +
@@ -128,22 +124,13 @@ export default {
 	flex-direction: column;
 	height: 100%;
 
-	@mixin row {
-		display: flex;
-		flex-wrap: wrap;
-	}
-	@mixin col {
+	.infinite-list-cell {
 		flex: 1 1;
-		font-size: 14px;
-		display: flex;
-	}
-
-	&-header {
-		@include row;
-
-		div {
-			@include col;
-		}
+		display: block;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		margin: 0 5px;
 	}
 
 	.md-divider {
@@ -155,19 +142,15 @@ export default {
 		scroll-snap-type: y mandatory;
 		height: 100%;
 		padding: 0px;
+
+		&.md-dense {
+			padding: 0px;
+		}
 	}
 
 	&-item {
 		scroll-snap-align: start;
 		transition: all 0.5s;
-
-		.md-list-item {
-			@include row;
-
-			.md-list-item-content div {
-				@include col;
-			}
-		}
 
 		&-spinner {
 			padding: 10px 0px;

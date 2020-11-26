@@ -1,7 +1,7 @@
 
-<template>
+<template functional>
 	<md-content class="spinner-k2000 md-primary">
-		<div v-show="animate" :style="{ animationDuration: `${ duration }s` }" />
+		<div v-show="props.animate" :style="{ animationDuration: `${ props.duration }s` }" />
 	</md-content>
 </template>
 
@@ -44,24 +44,29 @@ export default {
 		left: 0%;
 		width: 10px;
 		height: 3px;
+		top: 2px;
 	}
 	25% {
 		width: 50px;
 		height: 8px;
+		top: 0px;
 	}
 	50% {
 		left: 100%;
 		width: 10px;
 		height: 3px;
+		top: 2px;
 	}
 	75% {
 		width: 50px;
 		height: 8px;
+		top: 0px;
 	}
 	100% {
 		left: 0%;
 		width: 10px;
 		height: 3px;
+		top: 2px;
 	}
 }
 </style>

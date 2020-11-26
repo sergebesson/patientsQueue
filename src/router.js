@@ -1,6 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import PatientQueueList from "./components/patient-queue-list";
+import PatientQueueMain from "./components/patient-queue/main.vue";
 import ReasonRequestList from "./components/reason-request-list.vue";
 
 Vue.use(VueRouter);
@@ -12,7 +12,11 @@ const routes = [ {
 }, {
 	name: "patient-queue",
 	path: "/patient-queue",
-	component: PatientQueueList,
+	component: PatientQueueMain,
+	props: (route) => ({
+		patientQueueId: route.query["patient-queue-id"],
+		tabs: route.query.tabs,
+	}),
 }, {
 	name: "reason-request",
 	path: "/reason-request",
