@@ -31,14 +31,14 @@ export default {
 	components: { patientQueueList, patientQueueDetail },
 	props: {
 		patientQueueId: { type: String, required: false },
-		topic: { type: String, default: "1" },
+		topic: { type: String },
 	},
 	methods: {
 		updatePatientQueue(patientQueue) {
 			this.$router.push({
 				name: this.$route.name,
 				params: this.$route.params,
-				query: { ...this.$route.query, "patient-queue-id": patientQueue.id, topic: "1" },
+				query: { ...this.$route.query, "patient-queue-id": patientQueue.id },
 			});
 		},
 		updateTopic: function (topic) {

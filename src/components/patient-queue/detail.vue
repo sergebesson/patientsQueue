@@ -43,7 +43,7 @@
 						<p> repzut orizeyu oeru ouer uoero gerou goruioer oig orzeu gopiz</p>
 						<p> repzut orizeyu oeru ouer uoero gerou goruioer oig orzeu gopiz</p>
 					</md-tab>
-					<md-tab id="medicalInformation" md-label="medical">medicalInformation</md-tab>
+					<md-tab id="medical-information" md-label="medical">medicalInformation</md-tab>
 					<md-tab id="contacts" md-label="contacts">contacts</md-tab>
 					<md-tab id="others" md-label="autres">others</md-tab>
 				</md-tabs>

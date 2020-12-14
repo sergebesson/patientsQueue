@@ -1,7 +1,7 @@
 
-<template functional>
+<template>
 	<md-content class="spinner-k2000 md-primary">
-		<div v-show="props.animate" :style="{ animationDuration: `${ props.duration }s` }" />
+		<div v-show="this.animate" :style="{ animationDuration: `${ this.duration }s` }" />
 	</md-content>
 </template>
 

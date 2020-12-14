@@ -2,7 +2,6 @@
 
 ## TODO
 
-* iu - Détail - onglet patient
 * iu - Détail - onglet medical
 * iu - Détail - onglet contacts
 * iu - Détail - onglet autres
@@ -12,7 +11,7 @@
 
 ## ON GOING
 
-* iu - recherche patient
+* iu - Détail - onglet patient
 
 ## DONE
 
@@ -34,6 +33,7 @@
 * iu - Ajout de la liste des motifs de la demande
 * iu - Ajout de la creation, modification, suppression des motifs de la demande
 * iu - Architecture de la fiche patient avec onglet
+* iu - recherche patient
 
 ## Info
 

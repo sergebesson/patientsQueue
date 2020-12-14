@@ -12,6 +12,10 @@
 			<patient-queue-list-item header/>
 		</template>
 
+		<template #before-items>
+			<patient-queue-search />
+		</template>
+
 		<template #item="{ item: patientQueue }">
 			<patient-queue-list-item
 				:patientQueue="patientQueue"
@@ -26,10 +30,11 @@
 import { patientsQueueStore } from "../../stores/patients-queue.store";
 import InfiniteList from "../infinite-list";
 import PatientQueueListItem from "./list-item";
+import PatientQueueSearch from "./search";
 
 export default {
 	name: "PatientQueueList",
-	components: { InfiniteList, PatientQueueListItem },
+	components: { InfiniteList, PatientQueueListItem, PatientQueueSearch },
 	events: [ "click" ],
 	props: {
 		currentPatientQueueId: { type: String },

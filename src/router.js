@@ -15,7 +15,7 @@ const routes = [ {
 	component: PatientQueueMain,
 	props: (route) => ({
 		patientQueueId: route.query["patient-queue-id"],
-		tabs: route.query.tabs,
+		topic: route.query.topic,
 	}),
 }, {
 	name: "reason-request",
