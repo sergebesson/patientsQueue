@@ -32,20 +32,18 @@
 					:md-active-tab="topic"
 					@md-changed="onTopicChange"
 				>
-					<md-tab id="patient" md-label="patient">
-						<p>patient</p>
-						<p> prtuieropu tioperzu oerzu hoeruhy tkl rguomeu gteriopu oer or</p>
-						<p> repzut orizeyu oeru ouer uoero gerou goruioer oig orzeu gopiz</p>
-						<p> repzut orizeyu oeru ouer uoero gerou goruioer oig orzeu gopiz</p>
-						<p> repzut orizeyu oeru ouer uoero gerou goruioer oig orzeu gopiz</p>
-						<p> repzut orizeyu oeru ouer uoero gerou goruioer oig orzeu gopiz</p>
-						<p> repzut orizeyu oeru ouer uoero gerou goruioer oig orzeu gopiz</p>
-						<p> repzut orizeyu oeru ouer uoero gerou goruioer oig orzeu gopiz</p>
-						<p> repzut orizeyu oeru ouer uoero gerou goruioer oig orzeu gopiz</p>
+					<md-tab id="patient" md-icon="person">
+						<patient-queue-detail-patient :patientQueue="patientQueue"/>
 					</md-tab>
-					<md-tab id="medical-information" md-label="medical">medicalInformation</md-tab>
-					<md-tab id="contacts" md-label="contacts">contacts</md-tab>
-					<md-tab id="others" md-label="autres">others</md-tab>
+					<md-tab id="medical-information" md-icon="medical_services">
+						medicalInformation
+					</md-tab>
+					<md-tab id="contacts" md-icon="phone">
+						contacts
+					</md-tab>
+					<md-tab id="others" md-icon="more_horiz">
+						others
+					</md-tab>
 				</md-tabs>
 			</md-card-content>
 		</md-card>
@@ -57,11 +55,12 @@ import "animate.css/animate.min.css";
 import dateFilters from "../../filters/date";
 import { patientsQueueStore } from "../../stores/patients-queue.store";
 import SpinnerK2000 from "../spinner-k2000";
+import PatientQueueDetailPatient from "./detail-patient";
 
 export default {
 	name: "PatientQueueDetail",
 	event: [ "update:topic", "exit" ],
-	components: { SpinnerK2000 },
+	components: { SpinnerK2000, PatientQueueDetailPatient },
 	props: {
 		patientQueueId: { type: String, required: true },
 		topic: { type: String, default: "patient" },
