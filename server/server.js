@@ -40,6 +40,14 @@ class Server {
 	}
 
 	async initialize(configurationFile) {
+		// Patch pour Array.flatMap
+		// en effet express-openapi-validator polyfill flatMap mais du coup ca pose
+		// problème pour consig qui fait un `for (var e in dir)` dir étant un Array
+		// e reçois 'flatMap' en plus des éléments de l'Array
+		// Pour corriger, je force flatMap a ne pas être enumerable.
+		// eslint-disable-next-line no-extend-native
+		Object.defineProperty(Array.prototype, "flatMap", { enumerable: false });
+
 		const context = await this.initializeContext({ configurationFile });
 
 		this.logger = context.logger;

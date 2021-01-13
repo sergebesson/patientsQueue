@@ -26,7 +26,7 @@
 			<div class="infinite-list-cell">{{ patientQueue.patient.fullName }}</div>
 			<div class="infinite-list-cell">{{ patientQueue.patient.email }}</div>
 			<div class="infinite-list-cell date">
-				{{ patientQueue.patient.date_of_birth | dateToAge }}
+				{{ patientQueue.patient.date_of_birth | dateToAge({ showMonth: false }) }}
 				<md-tooltip>{{ patientQueue.patient.date_of_birth | dateToDate }}</md-tooltip>
 			</div>
 			<div class="infinite-list-cell class">{{ patientQueue.patient.class }}</div>

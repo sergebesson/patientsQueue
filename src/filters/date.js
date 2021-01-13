@@ -16,9 +16,9 @@ function dateToDuration(date) {
 	return `${ momentDate < Date.now() ? "-" : "" } ${ momentDate.fromNow(true) }`;
 }
 
-function dateToAge(date) {
+function dateToAge(date, { showMonth = true } = {}) {
 	const age = moment.duration(Date.now() - moment(date, DATABASE_DATE_FORMAT));
-	return `${ age.years() } an${ age.years() > 1 ? "s" : "" }${ age.years() < 20 && age.months() > 0 ? ` ${ age.months() }` : "" }`;
+	return `${ age.years() } an${ age.years() > 1 ? "s" : "" }${ age.years() < 20 && age.months() > 0 ? ` ${ age.months() }${showMonth ? " mois" : "" }` : "" }`;
 }
 
 export default {
